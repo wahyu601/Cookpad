@@ -32,7 +32,12 @@ class UserObserver
      */
     public function updated(User $user): void
     {
-        //
+        // simpan ke dalam tabel log, ini dilakukan setelah user berhasil disunting
+        Log::create([
+            'module' => 'sunting',
+            'action' => 'sunting akun',
+            'useraccess' => $user->email
+        ]);
     }
 
     /**
@@ -40,7 +45,11 @@ class UserObserver
      */
     public function deleted(User $user): void
     {
-        //
+        Log::create([
+            'module' => 'delete',
+            'action' => 'delete akun',
+            'useraccess' => $user->email
+        ]);
     }
 
     /**
