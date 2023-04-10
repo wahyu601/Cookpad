@@ -38,4 +38,5 @@ Route::middleware(['admin.api'])->prefix('admin')->group(function() {
     Route::get('deactivation-account/{id}',[AdminController::class,'deactivation_account']);
 
     Route::post('create-recipe',[AdminController::class,'create_recipe']);
+    Route::put('update-recipe/{id}',[AdminController::class,'update_recipe']);
 });

@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Event;
 
 use App\Models\User; //panggil model User
 use App\Observers\UserObserver; //panggil observer UserObserver
+use App\Models\Recipe; //panggil model Recipe
+use App\Observers\RecipeObserver; //panggil observer RecipeObserver
+use App\Models\Tool; //panggil model Tool
+use App\Observers\ToolObserver; //panggil observer ToolObserver
+use App\Models\Ingredients; //panggil model Ingredients
+use App\Observers\IngredientObserver; //panggil observer IngredientObserver
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserObserver::class); //registrasikan disini
+        Recipe::observe(RecipeObserver::class);
+        Tool::observe(ToolObserver::class);
+        Ingredients::observe(IngredientObserver::class);
     }
 
     /**
