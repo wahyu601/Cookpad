@@ -32,7 +32,11 @@ class IngredientObserver
      */
     public function deleted(Ingredients $ingredients): void
     {
-        //
+        Log::create([
+            'module' => 'hapus bahan',
+            'action' => 'hapus bahan untuk id resep '.$ingredients->resep_idresep,
+            'useraccess' => "-"
+        ]);
     }
 
     /**

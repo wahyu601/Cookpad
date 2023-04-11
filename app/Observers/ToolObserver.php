@@ -32,7 +32,11 @@ class ToolObserver
      */
     public function deleted(Tool $tool): void
     {
-        //
+        Log::create([
+            'module' => 'hapus alat',
+            'action' => 'hapus alat untuk id resep '.$tool->resep_idresep,
+            'useraccess' => "-"
+        ]);
     }
 
     /**

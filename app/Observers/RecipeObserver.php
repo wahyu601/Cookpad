@@ -36,7 +36,11 @@ class RecipeObserver
      */
     public function deleted(Recipe $recipe): void
     {
-        //
+        Log::create([
+            'module' => 'hapus resep',
+            'action' => 'hapus resep '.$recipe->judul.' dengan id '.$recipe->id,
+            'useraccess' => $recipe->user_email
+        ]);
     }
 
     /**
