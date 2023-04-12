@@ -4,9 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController; // panggil AuthController
 use App\Http\Controllers\AdminController; //panggil AdminController
+use App\Http\Controllers\RecipeController; //panggil RecipeController
 
+// guest route
 Route::post('register', [AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
+Route::get('recipes',[RecipeController::class,'show_recipes']);
+Route::post('recipes/get-recipe',[RecipeController::class,'recipe_by_id']);
+Route::post('recipes/rating',[RecipeController::class,'rating']);
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +32,8 @@ Route::post('login',[AuthController::class,'login']);
 // route untuk admin, dimana terdapat middleware admin juga prefix awalan url "admin"
 
 Route::middleware(['admin.api'])->prefix('admin')->group(function() {
+
+    Route::get('dashboard',[AdminController::class,'dashboard']);
 
     Route::post('register',[AdminController::class,'register']);
     Route::get('register',[AdminController::class,'show_register']);

@@ -8,9 +8,34 @@ use App\Models\User;
 use App\Models\Recipe; //panggil model recipe
 use App\Models\Tool; //panggil model tool
 use App\Models\Ingredients; // panggil ingredients
+use Illuminate\Support\Facades\DB; // panggil query builder
 
 class AdminController extends Controller
 {
+
+    public function dashboard(){
+
+        $totalRecipes = Recipe::count();
+        $totalPublishRecipes = Recipe::where('status_resep','publish')->count();
+        $popularRecipe = DB::table('resep')
+                            ->select('judul',DB::raw('count(idresep_view) as jumlah'))
+                            ->leftJoin('resep_view','resep.idresep','=','resep_view.resep_idresep')
+                            ->groupBy('judul')
+                            ->orderBy(DB::raw('count(idresep_view)'),'desc')
+                            ->limit(10)
+                            ->get();
+
+        return response()->json([
+            "data" => [
+                "msg" => 'dashboard monitoring',
+                "totalRecipes" => $totalRecipes,
+                "totalPublishRecipes" => $totalPublishRecipes,
+                "popularRecipe" => $popularRecipe,
+            ]
+        ],200);
+
+    }
+
     public function register(Request $request) {
 
         $validator = Validator::make($request->all(),[

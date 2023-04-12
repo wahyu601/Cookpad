@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Recipe; //panggil model recipe
 
 class User extends Authenticatable
 {
@@ -51,5 +52,12 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($password) {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    // untuk relasi ke table resep
+    public function recipe(){
+        // relasi ke table resep dengan kunci tamu user_email pada table resep
+        // dan kunci utama email pada table user
+        return $this->hasMany(Recipe::class,'user_email','email');
     }
 }
