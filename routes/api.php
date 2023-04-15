@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController; // panggil AuthController
 use App\Http\Controllers\AdminController; //panggil AdminController
+use App\Http\Controllers\UserController; //panggil UserController
 use App\Http\Controllers\RecipeController; //panggil RecipeController
 
 // guest route
@@ -50,3 +51,12 @@ Route::middleware(['admin.api'])->prefix('admin')->group(function() {
     Route::get('publish/{id}',[AdminController::class,'publish_recipe']);
     Route::get('unpublish/{id}',[AdminController::class,'unpublish_recipe']);
 });
+
+/**
+ * user routes
+ * route untuk admin, dimana terdapat middleware user dan juga prefix awalan url "user"
+ */
+
+ Route::middleware(['user.api'])->prefix('user')->group(function() {
+    Route::post('submit-recipe',[UserController::class,'create_recipe']);
+ });
